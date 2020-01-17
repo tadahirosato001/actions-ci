@@ -1,2 +1,2 @@
 build:
-    docker-compose build nginx
+        docker-compose build nginx
