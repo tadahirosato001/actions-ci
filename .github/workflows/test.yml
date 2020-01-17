@@ -13,14 +13,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+
       - name: Build Docker Image
         run: cd docker/ && make build && cd ../
-      - name: Run a one-line script
-        run: echo Hello, world!
+
+      - name: Add Tag
+        run: docker tag ${IMAGE_NAME} docker.pkg.github.com/${{ github.repository }}/${IMAGE_NAME}:${IMAGE_TAG}
+
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
       - name: Login GitHub Registry
         run: |
           docker login docker.pkg.github.com -u owner -p ${{ secrets.GITHUB_TOKEN }}
