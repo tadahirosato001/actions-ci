@@ -26,7 +26,8 @@ jobs:
           echo test, and deploy your project.
 
       - name: Login GitHub Registry
-        run: |
-          docker login docker.pkg.github.com -u owner -p ${{ secrets.GITHUB_TOKEN }}
-          echo IMAGE_NAME= ${IMAGE_NAME}
-          echo IMAGE_TAG= ${IMAGE_TAG}
+        # 自動生成されるGITHUB_TOKENを使用する
+        run: docker login docker.pkg.github.com -u owner -p ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push image to GitHub Registry
+        run: docker push docker.pkg.github.com/${{ github.repository }}/${IMAGE_NAME}:${IMAGE_TAG}
